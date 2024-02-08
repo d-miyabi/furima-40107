@@ -19,7 +19,7 @@
 | Column | Type | Option |
 |-|-|-|
 | name | string | null: false |
-| descritption | text | null: false |
+| description | text | null: false |
 | price | integer | null: false |
 | category_id | integer | null: false |
 | condition_id | integer | null: false |
@@ -41,16 +41,16 @@
 | house_number | string | null: false |
 | building_name | string |
 | phone_number | string | null: false ||
-| purchase | references | null: false, foregin_key: true |
+| purchase | references | null: false, foreign_key: true |
 
 ### Association
 - belongs_to :purchase
 
 ## purchasesテーブル
-| Column | Type | Opution |
+| Column | Type | Option |
 |-|-|-|
-| user(FK) | references | null: false, foregin_key: true |
-| item(FK) | references | null: false, foregin_key: true |
+| user(FK) | references | null: false, foreign_key: true |
+| item(FK) | references | null: false, foreign_key: true |
 
 ### Association
 - belongs_to :user
