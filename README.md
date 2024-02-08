@@ -49,8 +49,8 @@
 ## purchasesテーブル
 | Column | Type | Opution |
 |-|-|-|
-| user(FK) | references | null: false |
-| item(FK) | references | null: false |
+| user(FK) | references | null: false, foregin_key: true |
+| item(FK) | references | null: false, foregin_key: true |
 
 ### Association
 - belongs_to :user
