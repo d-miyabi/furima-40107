@@ -30,7 +30,6 @@
 
 ### Association
 - belongs_to :user
-- has_many :addresses
 - has_one :purchase
 
 ## addressesテーブル
@@ -42,7 +41,6 @@
 | house_number | string | null: false |
 | building_name | string |
 | phone_number | string | null: false ||
-| user| references | null: false, foreign_key: true |
 | purchase | references | null: false, foregin_key: true |
 
 ### Association
@@ -51,10 +49,8 @@
 ## purchasesテーブル
 | Column | Type | Opution |
 |-|-|-|
-| user_id(FK) | integer | null: false |
-| item_id(FK) | integer | null: false |
-| quantity | integer | null: false |
-| purchased_at | datetime | null: false |
+| user(FK) | references | null: false |
+| item(FK) | references | null: false |
 
 ### Association
 - belongs_to :user
