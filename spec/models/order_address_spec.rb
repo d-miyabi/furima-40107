@@ -15,4 +15,12 @@ RSpec.describe Order, type: :model do
       expect(@order_address).to be_valid
     end
    end
+
+   context '内容に問題がある場合' do
+    it 'postal_codeが空だと保存できないこと' do
+      @order_address.postal_code = ''
+      @order_address.valid?
+      expect(@order_address.errors.full_messages).to include("Postal code can't be blank")
+    end
+  end
 end
