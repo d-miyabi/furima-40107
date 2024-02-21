@@ -9,6 +9,7 @@ class OrderAddress
     validates :city
     validates :addresses, presence: true
     validates :phone_number, format: { with: /\A\d{10,11}\z/,message: "is invalid. Do not Include hyphen(-)"}
+    validates :token, presence: true
   end
 
   def save
