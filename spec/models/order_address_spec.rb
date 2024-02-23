@@ -11,7 +11,7 @@ RSpec.describe Order, type: :model do
     it 'すべての値が正しく入力されていれば保存できる' do
       expect(@order_address).to be_valid
     end
-    it 'building_nameは空でも保存できること' do
+    it 'buildingは空でも保存できること' do
       @order_address.building_name = ''
       expect(@order_address).to be_valid
     end
@@ -47,6 +47,11 @@ RSpec.describe Order, type: :model do
       @order_address.token = nil
       @order_address.valid?
       expect(@order_address.errors.full_messages).to include("Token can't be blank")
+    end
+    it 'userが紐付いていないと保存できないこと' do
+      @order_address.user_id = nil
+      @order_address.valid?
+      expect(@order_address.errors.full_messages).to include("User can't be blank")
     end
   end
 end
