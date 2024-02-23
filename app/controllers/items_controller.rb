@@ -22,13 +22,13 @@ class ItemsController < ApplicationController
   end
 
   def show
+  end
+
+  def edit
     return unless user_signed_in?
     return unless @item.order.present? && current_user != @item.user
 
     redirect_to root_path
-  end
-
-  def edit
   end
 
   def update
