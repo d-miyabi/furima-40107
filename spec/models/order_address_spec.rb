@@ -14,9 +14,9 @@ RSpec.describe Order, type: :model do
       @order_address.building_name = ''
       expect(@order_address).to be_valid
     end
-   end
+  end
 
-   context '内容に問題がある場合' do
+  context '内容に問題がある場合' do
     it 'postal_codeが空だと保存できないこと' do
       @order_address.postal_code = ''
       @order_address.valid?
@@ -48,4 +48,4 @@ RSpec.describe Order, type: :model do
       expect(@order_address.errors.full_messages).to include("Token can't be blank")
     end
   end
- end
+end
