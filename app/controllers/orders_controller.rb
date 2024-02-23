@@ -1,5 +1,8 @@
 class OrdersController < ApplicationController
   before_action :set_public_key, only: [:index, :create]
+  before_action :authenticate_user!
+  before_action :redirect_if_sold_out_or_not_owner, only: [:index]
+
   
   def index
     @order_address = OrderAddress.new
@@ -36,5 +39,11 @@ class OrdersController < ApplicationController
 
   def set_public_key
     gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
+  end
+
+  def redirect_if_sold_out_or_not_owner
+    if @item.order.present? || current_user.id != @item.user_id
+      redirect_to root_path
+    end
   end
 end
