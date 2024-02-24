@@ -2,6 +2,7 @@ class ItemsController < ApplicationController
   before_action :select_item, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
   before_action :redirect_to_show, only: [:edit, :update, :destroy]
+  before_action :redirect_if_sold_out_or_not_owner, only: [:edit, :update]
 
   def index
     @items = Item.all.order(created_at: :desc)
@@ -14,7 +15,7 @@ class ItemsController < ApplicationController
   def create
     @item = Item.new(item_params)
     if @item.save
-      return redirect_to root_path
+      redirect_to root_path
     else
       render 'new', status: :unprocessable_entity
     end
@@ -24,11 +25,15 @@ class ItemsController < ApplicationController
   end
 
   def edit
+    return unless user_signed_in?
+    return unless @item.order.present? && current_user != @item.user
+
+    redirect_to root_path
   end
 
   def update
     if @item.update(item_params)
-      return redirect_to item_path(@item)
+      redirect_to item_path(@item)
     else
       render 'edit', status: :unprocessable_entity
     end
@@ -36,7 +41,7 @@ class ItemsController < ApplicationController
 
   def destroy
     if @item.destroy
-      return redirect_to root_path
+      redirect_to root_path
     else
       render 'show', status: :unprocessable_entity
     end
@@ -63,6 +68,12 @@ class ItemsController < ApplicationController
   end
 
   def redirect_to_show
-    return redirect_to root_path if current_user.id != @item.user.id
+    redirect_to root_path if current_user.id != @item.user.id
+  end
+
+  def redirect_if_sold_out_or_not_owner
+    return unless @item.order.present? || current_user.id != @item.user_id
+
+    redirect_to root_path
   end
 end
