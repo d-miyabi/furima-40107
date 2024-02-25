@@ -10,7 +10,7 @@ class OrderAddress
     validates :prefecture_id, numericality: { other_than: 0, message: "can't be blank" }
     validates :city
     validates :addresses
-    validates :phone_number, format: { with: /\A\d{10,11}\z/, message: 'is invalid. Do not Include hyphen(-)' }
+    validates :phone_number, format: { with: /\A\d{10,11}\z/, message: 'is invalid' }
     validates :token
   end
 
